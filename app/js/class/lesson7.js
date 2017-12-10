@@ -98,3 +98,93 @@
     console.log(weakmap.get(o));
 }
 
+{
+    let map = new Map();
+    let arr = [];
+
+    //增
+    map.set('t',1);
+    arr.push({t:1});
+    console.info('map-arr',map,arr);
+
+    //查
+    let map_exist = map.has('t');
+    let arr_exist = arr.find(item=>item.t);
+    console.log(map_exist,arr_exist);
+
+    //改
+    map.set('t',2);
+    arr.forEach(item=>item.t?item.t=2:'');
+    console.info('map-arr-modify',map,arr);
+
+    //删
+    map.delete('t');
+    let index = arr.findIndex(item=>item.t);
+    arr.splice(index,1);
+    console.info('map-arr-empty',map,arr);
+}
+
+{
+    //set和arr对比
+    let set = new Set();
+    let arr = [];
+
+    //增
+    let json = {t:1};
+    set.add(json);
+    arr.push({t:1});
+    console.info('map-arr',set,arr);
+
+    //查 set的has中填写的是引用 必须被保存之后再使用
+    let set_exist = set.has(json);
+    let arr_exist = arr.find(item=>item.t);
+    console.log(set_exist);
+    console.log(arr_exist)
+
+    //改
+    set.forEach(item=>item.t?item.t=2:'');
+    arr.forEach(item=>item.t?item.t=2:'');
+    console.info('set-arr-modify',set,arr);
+
+    //删
+    set.forEach(item=>item.t?set.delete(item):'');
+    let index = arr.findIndex(item=>item.t);
+    arr.splice(index,1);
+    console.info('set-arr-empty',set,arr);
+}
+
+{
+    //map set object对比
+    let item={t:1};
+    let map = new Map();
+    let set = new Set();
+    let obj = {};
+
+    //增
+    map.set('t',1);
+    set.add(item);
+    obj['t'] = 1;
+    console.log('map-set-obj',map,set,obj);
+
+    //查
+    console.log({
+        map_exist:map.has('t'),
+        set_exist:set.has(item),
+        obj_exist: 't' in obj
+    })
+
+    //改
+    map.set('t',2);
+    item.t=2;
+    obj['t']=2;
+    console.log('map-set-obj-modify',map,set,obj);
+
+    //删除
+    map.delete('t');
+    set.delete(item);
+    delete obj['t'];
+    console.info('map-set-obj-empty',obj,map,set);
+}
+
+
+
