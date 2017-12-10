@@ -1,4 +1,4 @@
-import './class/lesson7';
+import './class/lesson8';
 
 //class Test{
 //    constructor(){
