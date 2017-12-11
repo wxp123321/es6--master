@@ -61,128 +61,128 @@
 
 	'use strict';
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
+	/**
+	 * Created by XP on 2017/12/11.
+	 */
 	{
-	    var obj = {
-	        time: '2017-12-10',
-	        name: 'net',
-	        _r: 123
+	    var ajax = function ajax(callback) {
+	        console.log('执行');
+	        setTimeout(function () {
+	            callback && callback.call();
+	        }, 1000);
 	    };
 
-	    var monitor = new Proxy(obj, {
-	        //拦截对象属性的读取
-	        get: function get(target, key) {
-	            return target[key].replace('2017', '2018');
-	        },
-
-	        //拦截对象设置属性
-	        set: function set(target, key, value) {
-	            if (key === 'name') {
-	                return target[key] = value;
-	            } else {
-	                return target[key];
-	            }
-	        },
-
-	        //拦截key in object操作
-	        has: function has(target, key) {
-	            if (key === 'name') {
-	                return target[key];
-	            } else {
-	                return false;
-	            }
-	        },
-
-	        //拦截delete
-	        deleteProperty: function deleteProperty(target, key) {
-	            if (key.indexOf('_') > -1) {
-	                delete target[key];
-	                return true;
-	            } else {
-	                return target[key];
-	            }
-	        },
-
-	        //拦截Object.keys,Object.getOwnPropertSymbols,Object.getOwnPropertyNames
-	        ownKeys: function ownKeys(target) {
-	            return Object.keys(target).filter(function (item) {
-	                return item != 'time';
-	            });
-	        }
+	    ajax(function () {
+	        console.log('hello world');
 	    });
-
-	    console.log('get', monitor.time);
-
-	    monitor.time = '2018';
-	    monitor.name = 'lalala';
-	    console.log('set', monitor.time);
-	    console.log('set', monitor);
-	    console.log('name', 'name' in monitor);
-	    console.log('time', 'time' in monitor);
-
-	    //delete monitor.time;
-	    //console.log('delete',monitor);
-	    //delete monitor._r;
-	    //console.log('delete',monitor);
-
-	    console.log('ownKeys', Object.keys(monitor));
 	}
 
 	{
-	    var _obj = {
-	        time: '2017-12-10',
-	        name: 'net',
-	        _r: 123
+	    var _ajax = function _ajax() {
+	        console.log('执行2');
+	        return new Promise(function (resolve, reject) {
+	            setTimeout(function () {
+	                resolve();
+	            }, 1000);
+	        });
 	    };
-	    console.log('Reflect get', Reflect.get(_obj, 'time'));
-	    Reflect.set(_obj, 'name', 'lalala');
-	    console.log(_obj);
-	    console.log(Reflect.has(_obj, 'name'));
+
+	    _ajax().then(function () {
+	        console.log('promise', 'timeout2');
+	    });
 	}
 
 	{
-	    var validator = function validator(target, _validator) {
-	        return new Proxy(target, {
-	            _validator: _validator,
-	            set: function set(target, key, value, proxy) {
-	                if (target.hasOwnProperty(key)) {
-	                    var va = this._validator[key];
-	                    if (!!va(value)) {
-	                        return Reflect.set(target, key, value, proxy);
-	                    } else {
-	                        throw Error('不能设置${key}到${value}');
-	                    }
-	                } else {
-	                    throw Error('${key}不存在');
-	                }
+	    var _ajax2 = function _ajax2() {
+	        console.log('执行3');
+	        return new Promise(function (resolve, reject) {
+	            setTimeout(function () {
+	                resolve();
+	            }, 1000);
+	        });
+	    };
+
+	    _ajax2().then(function () {
+	        return new Promise(function (reslove, reject) {
+	            setTimeout(function () {
+	                reslove();
+	            }, 1000);
+	        });
+	    }).then(function () {
+	        console.log('timeout3');
+	    });
+	}
+
+	{
+	    var _ajax3 = function _ajax3(num) {
+	        console.log('执行4');
+	        return new Promise(function (resolve, reject) {
+	            if (num > 5) {
+	                resolve();
+	            } else {
+	                throw new Error('出错了');
 	            }
 	        });
 	    };
 
-	    var personValidators = {
-	        name: function name(val) {
-	            return typeof val === 'string';
-	        },
-	        age: function age(val) {
-	            return typeof val === 'number' && val > 18;
-	        }
+	    _ajax3(6).then(function () {
+	        console.log('log', 6);
+	    }).catch(function (err) {
+	        console.log('catch', err);
+	    });
+
+	    _ajax3(3).then(function () {
+	        console.log('log', 3);
+	    }).catch(function (err) {
+	        console.log('catch', err);
+	    });
+	}
+
+	{
+	    //加载图片
+	    var loadImg = function loadImg(src) {
+	        return new Promise(function (resolve, reject) {
+	            var img = document.createElement('img');
+	            img.src = src;
+	            img.onload = function () {
+	                resolve(img);
+	            };
+	            img.onerror = function (err) {
+	                reject(err);
+	            };
+	        });
 	    };
 
-	    var Person = function Person(name, age) {
-	        _classCallCheck(this, Person);
-
-	        this.name = name;
-	        this.age = age;
-	        return validator(this, personValidators);
+	    var showImgs = function showImgs(imgs) {
+	        imgs.forEach(function (img) {
+	            document.body.appendChild(img);
+	        });
 	    };
 
-	    var person = new Person('xp', 30);
-	    console.log(person);
+	    Promise.all([loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png'), loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png'), loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png')]).then(showImgs);
+	}
 
-	    //person.name = 48;
-	    person.name = 'xxxx';
-	    console.log(person);
+	{
+	    var _loadImg = function _loadImg(src) {
+	        return new Promise(function (resolve, reject) {
+	            var img = document.createElement('img');
+	            img.src = src;
+	            img.onload = function () {
+	                resolve(img);
+	            };
+	            img.onerror = function (err) {
+	                reject(err);
+	            };
+	        });
+	    };
+
+	    var _showImgs = function _showImgs(img) {
+	        var p = document.createElement('p');
+	        p.appendChild(img);
+	        document.body.appendChild(p);
+	    };
+
+	    Promise.race([_loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png'), _loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png'), _loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png')]).then(_showImgs);
 	}
 
 /***/ })
