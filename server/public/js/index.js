@@ -53,7 +53,28 @@
 
 	'use strict';
 
-	__webpack_require__(2);
+	var _lesson = __webpack_require__(2);
+
+	var _lesson2 = _interopRequireDefault(_lesson);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	console.log(_lesson2.default.A); //import 'babel-polyfill';
+	//import './class/lesson14';
+
+	//class Test{
+	//    constructor(){
+	//        this.a = 'hello world'
+	//    }
+	//
+	//}
+	//
+	//let test = new Test();
+	//
+	//document.body.innerHTML = test.a;
+
+	//import {A,test,Hello} from './class/lesson14';
+	//import * as lesson from './class/lesson14';
 
 /***/ }),
 /* 2 */
@@ -61,129 +82,54 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 	/**
-	 * Created by XP on 2017/12/11.
+	 * Created by XP on 2017/12/13.
 	 */
-	{
-	    var ajax = function ajax(callback) {
-	        console.log('执行');
-	        setTimeout(function () {
-	            callback && callback.call();
-	        }, 1000);
-	    };
+	//export let A = 123;
+	//
+	//export function test(){
+	//    console.log('test');
+	//}
+	//
+	//export class Hello{
+	//    test(){
+	//        console.log('class');
+	//    }
+	//}
 
-	    ajax(function () {
-	        console.log('hello world');
-	    });
-	}
+	var A = 123;
+	var test = function test() {
+	    console.log('test');
+	};
 
-	{
-	    var _ajax = function _ajax() {
-	        console.log('执行2');
-	        return new Promise(function (resolve, reject) {
-	            setTimeout(function () {
-	                resolve();
-	            }, 1000);
-	        });
-	    };
+	var Hello = function () {
+	    function Hello() {
+	        _classCallCheck(this, Hello);
+	    }
 
-	    _ajax().then(function () {
-	        console.log('promise', 'timeout2');
-	    });
-	}
+	    _createClass(Hello, [{
+	        key: 'test',
+	        value: function test() {
+	            console.log('class');
+	        }
+	    }]);
 
-	{
-	    var _ajax2 = function _ajax2() {
-	        console.log('执行3');
-	        return new Promise(function (resolve, reject) {
-	            setTimeout(function () {
-	                resolve();
-	            }, 1000);
-	        });
-	    };
+	    return Hello;
+	}();
 
-	    _ajax2().then(function () {
-	        return new Promise(function (reslove, reject) {
-	            setTimeout(function () {
-	                reslove();
-	            }, 1000);
-	        });
-	    }).then(function () {
-	        console.log('timeout3');
-	    });
-	}
-
-	{
-	    var _ajax3 = function _ajax3(num) {
-	        console.log('执行4');
-	        return new Promise(function (resolve, reject) {
-	            if (num > 5) {
-	                resolve();
-	            } else {
-	                throw new Error('出错了');
-	            }
-	        });
-	    };
-
-	    _ajax3(6).then(function () {
-	        console.log('log', 6);
-	    }).catch(function (err) {
-	        console.log('catch', err);
-	    });
-
-	    _ajax3(3).then(function () {
-	        console.log('log', 3);
-	    }).catch(function (err) {
-	        console.log('catch', err);
-	    });
-	}
-
-	{
-	    //加载图片
-	    var loadImg = function loadImg(src) {
-	        return new Promise(function (resolve, reject) {
-	            var img = document.createElement('img');
-	            img.src = src;
-	            img.onload = function () {
-	                resolve(img);
-	            };
-	            img.onerror = function (err) {
-	                reject(err);
-	            };
-	        });
-	    };
-
-	    var showImgs = function showImgs(imgs) {
-	        imgs.forEach(function (img) {
-	            document.body.appendChild(img);
-	        });
-	    };
-
-	    Promise.all([loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png'), loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png'), loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png')]).then(showImgs);
-	}
-
-	{
-	    var _loadImg = function _loadImg(src) {
-	        return new Promise(function (resolve, reject) {
-	            var img = document.createElement('img');
-	            img.src = src;
-	            img.onload = function () {
-	                resolve(img);
-	            };
-	            img.onerror = function (err) {
-	                reject(err);
-	            };
-	        });
-	    };
-
-	    var _showImgs = function _showImgs(img) {
-	        var p = document.createElement('p');
-	        p.appendChild(img);
-	        document.body.appendChild(p);
-	    };
-
-	    Promise.race([_loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png'), _loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png'), _loadImg('http://i4.buimg.com/56751/df1ef0720bea6832.png')]).then(_showImgs);
-	}
+	exports.default = {
+	    A: A,
+	    test: test,
+	    Hello: Hello
+	};
 
 /***/ })
 /******/ ]);
