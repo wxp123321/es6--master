@@ -146,7 +146,7 @@ class Base{
     getCount(){
         let self = this;
         let active = $('.boll-list .btn-boll-active').length;
-        let count = self.computeCount(active,self,cur_play);
+        let count = self.computeCount(active,self.cur_play);
         let range = self.computeBonus(active,self.cur_play);
         let money = count*2;
         let win1 = range[0] - money;
@@ -167,7 +167,7 @@ class Base{
     getTotal(){
         let count = 0;
         $('.codelist li').each(function (index,item) {
-            count+=$(item).attr(count)*1;
+            count+=$(item).attr('count')*1;
         })
         $('#count').text(count);
         $('#money').text(count*2);

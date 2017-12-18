@@ -26,13 +26,11 @@ var makeIssue = function () {
     var h = Math.ceil(minus_time/1000/60/10);
     var end_date = new Date(cur_issue_date.getTime()+1000*60*10*h);
     end_time = end_date.getTime();
-    cur_issue = [end_date.getFullYear(),('0'+end_date.getMonth()+1).slice(-2),('0'+end_date.getDate()).slice(-2),('0'+h).slice(-2)].join('');
+    cur_issue = [end_date.getFullYear(),('0'+(end_date.getMonth()+1)).slice(-2),('0'+end_date.getDate()).slice(-2),('0'+h).slice(-2)].join('');
   }else{
-    if(date.getDate() !== end_issue_date.getDate()){
-      first_issue_date.setDate(first_issue_date.getDate()+1);
-    }
+    first_issue_date.setDate(first_issue_date.getDate()+1);
     end_time = first_issue_date.getTime();
-    cur_issue = [first_issue_date.getFullYear(),('0'+first_issue_date.getMonth()+1).slice(-2),('0'+first_issue_date.getDate()).slice(-2),'01'].join('');
+    cur_issue = [first_issue_date.getFullYear(),('0'+(first_issue_date.getMonth()+1)).slice(-2),('0'+first_issue_date.getDate()).slice(-2),'01'].join('');
   }
   var cur_date = new Date();
   if(end_time - cur_date.getTime() > 1000*60*2){

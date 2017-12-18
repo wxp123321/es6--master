@@ -7,7 +7,7 @@ class Calculate{
         const exist = this.play_list.has(play_name);
         const arr = new Array(active).fill('0');
         if(exist && play_name.at(0) === 'r'){
-            count=Calculate.combine(arr,play_name.split('')[1]);
+            count=Calculate.combine(arr,play_name.split('')[1]).length;
         }
         return count;
     }
@@ -81,6 +81,7 @@ class Calculate{
                 }
             }
         })(arr,size,[])
+        return allResult;
     }
 
 }
